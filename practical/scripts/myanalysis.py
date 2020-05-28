@@ -20,4 +20,23 @@ Created on Thu May 28 07:36:05 2020
 @author: mheado86
 """
 
-## Read in CSV file
+import csv
+import os.path
+import pandas as pd
+import numpy as np
+
+
+## Read in CSV file to pandas DataFrame
+filepath = '/Users/mheado86/Desktop/QLS612_Assessment/Nelson-MC-QLSC612/practical/'
+file_name = 'brainsize'
+full_fn_csv = os.path.join(filepath, file_name+'.csv')
+
+with open(full_fn_csv) as file:
+  brainsize = pd.read_csv(file,sep=";")                                         # read csv file with ; as separater
+  
+del brainsize['Unnamed: 0']                                                     # delete extra column generated automatically
+# alternatively could use brainsize.drop('Unnamed: 0',1) ; command works for rows too
+
+
+## Add random variable partY to each entry in dataframe
+brainsize['partY'] = pd.Series(np.random.randn(len(brainsize)), index=brainsize.index)
